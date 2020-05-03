@@ -2,7 +2,36 @@ import React, {Component} from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
 import axios from 'axios';
+import styled from 'styled-components';
+const Styles = styled.div`
+height:100vh;
+text-align:center;
+background: #56CCF2;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+width:100%;
+ border:0;
+ margin:0;
+ margin-right:0;
 
+ .form-group{
+     width:40%;
+     margin-left:auto;
+     margin-right:auto;
+
+ }
+
+ label{
+     font-family:monospace;
+     color:white;
+     font-size:2vh;
+ }
+
+ .btn{
+     background-color:#2F80ED;
+     font-family:monospace;
+ }
+`;
 export default class CreateExercises extends Component{
 
     constructor(props) {
@@ -84,6 +113,7 @@ export default class CreateExercises extends Component{
 
     render(){
         return(
+            <Styles>
             <div>
                 <h3>Create new exercise log</h3> 
                 { /* dropdown menu */}
@@ -147,6 +177,7 @@ export default class CreateExercises extends Component{
                     </div> 
                 </form>
             </div>
+            </Styles>
         )
     }
 }

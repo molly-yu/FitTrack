@@ -2,6 +2,36 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
+import styled from 'styled-components';
+const Styles = styled.div`
+height:100vh;
+text-align:center;
+background: #56CCF2;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+width:100%;
+ border:0;
+ margin:0;
+ margin-right:0;
+
+ .form-group{
+     width:40%;
+     margin-left:auto;
+     margin-right:auto;
+
+ }
+
+ label{
+     font-family:monospace;
+     color:white;
+     font-size:2vh;
+ }
+
+ .btn{
+     background-color:#2F80ED;
+     font-family:monospace;
+ }
+`;
 
 export default class EditExercises extends Component{
 
@@ -26,7 +56,7 @@ export default class EditExercises extends Component{
     }
 
     componentDidMount() { // lifecycle component, run before loading
-        axios.get('http://localhost:5000/exercises/' + this.componentWillReceiveProps.match.params.id) // get request from server
+        axios.get('http://localhost:5000/exercises/' + this.props.match.params.id) // get request from server
         .then(response => {
             this.setState({
                 username: response.data.username,
@@ -35,8 +65,19 @@ export default class EditExercises extends Component{
                 date: new Date(response.data.date)
             })
         })
-        .catch((error) => {
+        .catch(function(error){
             console.log(error);
+        })
+        axios.get('http://localhost:5000/users/')
+        .then(response => {
+          if (response.data.length > 0) {
+            this.setState({
+              users: response.data.map(user => user.username),
+            })
+          }
+        })
+        .catch((error) => {
+          console.log(error);
         })
     }
 
@@ -76,14 +117,15 @@ export default class EditExercises extends Component{
 
         console.log(exercise);
 
-        axios.update('http://localhost:5000/exercises/update/' + this.props.match.params.id, exercise) //update exercise to server database
+        axios.post('http://localhost:5000/exercises/update/' + this.props.match.params.id, exercise) //update exercise to server database
         .then(res => console.log(res.data));
 
-        window.location = '/'; //back to homepage
+        window.location = '/list'; //back to list
     }
 
     render(){
         return(
+            <Styles>
             <div>
                 <h3>Edit exercise log</h3> 
                 { /* dropdown menu */}
@@ -147,6 +189,7 @@ export default class EditExercises extends Component{
                     </div> 
                 </form>
             </div>
+            </Styles>
         )
     }
 }
