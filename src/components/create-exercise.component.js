@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
+import axios from 'axios';
 
 export default class CreateExercises extends Component{
 
@@ -25,9 +26,17 @@ export default class CreateExercises extends Component{
     }
 
     componentDidMount() { // lifecycle component, run before loading
-        this.setState({
-            users: ['test user'],
-            username: 'test user'
+        axios.get('http://localhost:5000/users/') // get request from server
+        .then(response => {
+            if(response.data.length > 0){ // if non-empty list
+                this.setState({
+                    users: response.data.map(user => user.username), //return username from array of users
+                    username: response.data[0].username
+                })
+            }
+        })
+        .catch((error) => {
+            console.log(error);
         })
     }
 
@@ -49,10 +58,10 @@ export default class CreateExercises extends Component{
         });
     }
 
-    onChangeDate(e){
+    onChangeDate(date){
         this.setState({
-            date: Date
-        });
+            date: date
+        })
     }
 
     onSubmit(e){
@@ -67,6 +76,9 @@ export default class CreateExercises extends Component{
 
         console.log(exercise);
 
+        axios.post('http://localhost:5000/exercises/add', exercise) //post user to server database
+        .then(res => console.log(res.data));
+
         window.location = '/'; //back to homepage
     }
 
@@ -78,7 +90,7 @@ export default class CreateExercises extends Component{
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Username: </label> 
-                        <select ref = "userInput"
+                        <select 
                             required
                             className="form-control"
                             value={this.state.username}
@@ -123,6 +135,7 @@ export default class CreateExercises extends Component{
                         {/* date picker */}
                         <div>
                             <DatePicker
+                                // dateFormat={moment(this.state.date).format("yyyy/MM/dd")}
                                 selected={this.state.date}
                                 onChange={this.onChangeDate}
                             />
