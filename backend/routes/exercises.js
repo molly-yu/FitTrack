@@ -12,8 +12,9 @@ router.route('/add').post((req,res) => { // http post requests
     const description = req.body.description;
     const duration = Number(req.body.duration);
     const date = Date.parse(req.body.date);
+    const caloriesBurned = Number(req.body.caloriesBurned);
 
-    const newExercise = new Exercise({username, description, duration, date}); // create new exercise
+    const newExercise = new Exercise({username, description, duration, date, caloriesBurned}); // create new exercise
 
     newExercise.save()
      .then(() => res.json('Exercise added!'))
@@ -39,6 +40,7 @@ router.route('/update/:id').post((req,res) => {
         exercise.description = req.body.description;
         exercise.duration = Number(req.body.duration);
         exercise.date = Date.parse(req.body.date);
+        exercise.caloriesBurned = Number(req.body.caloriesBurned);
 
         exercise.save()
         .then(() => res.json('Exercise updated!'))
