@@ -38,6 +38,9 @@ export default class Home extends Component{
                 <h3>Welcome to Fitness Tracker</h3>
                 <h4>Log your exercises and track your fitness!</h4>
                 <div className="links">
+                <div className="buttons">
+                    <a href="/userinfo">View your user information</a>
+                    </div>
                     <div className="buttons">
                     <a href="/list">View your exercise list</a>
                     </div>
