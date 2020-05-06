@@ -41,6 +41,7 @@ export default class CreateExercises extends Component{
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeDuration = this.onChangeDuration.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
+        this.onChangeCaloriesBurned = this.onChangeCaloriesBurned.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
 
@@ -50,6 +51,7 @@ export default class CreateExercises extends Component{
             description: '',
             duration: 0,
             date: new Date(),
+            caloriesBurned: 0,
             users: []
         }
     }
@@ -90,7 +92,13 @@ export default class CreateExercises extends Component{
     onChangeDate(date){
         this.setState({
             date: date
-        })
+        });
+    }
+
+    onChangeCaloriesBurned(e){
+        this.setState({
+            caloriesBurned: e.target.value
+        });
     }
 
     onSubmit(e){
@@ -100,7 +108,8 @@ export default class CreateExercises extends Component{
             username: this.state.username,
             description: this.state.description,
             duration: this.state.duration,
-            date: this.state.date
+            date: this.state.date,
+            caloriesBurned: this.state.caloriesBurned
         }
 
         console.log(exercise);
@@ -157,6 +166,18 @@ export default class CreateExercises extends Component{
                             className="form-control"
                             value={this.state.duration}
                             onChange={this.onChangeDuration}
+                            />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Calories Burned: </label> 
+                        {/* input text box */}
+                        <input 
+                            type="text"
+                            required
+                            className="form-control"
+                            value={this.state.caloriesBurned}
+                            onChange={this.onChangeCaloriesBurned}
                             />
                     </div>
 

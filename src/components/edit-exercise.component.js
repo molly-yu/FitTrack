@@ -42,6 +42,7 @@ export default class EditExercises extends Component{
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeDuration = this.onChangeDuration.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
+        this.onChangeCaloriesBurned = this.onChangeCaloriesBurned.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
 
@@ -51,6 +52,7 @@ export default class EditExercises extends Component{
             description: '',
             duration: 0,
             date: new Date(),
+            caloriesBurned: 0,
             users: []
         }
     }
@@ -62,7 +64,8 @@ export default class EditExercises extends Component{
                 username: response.data.username,
                 description: response.data.description,
                 duration: response.data.duration,
-                date: new Date(response.data.date)
+                date: new Date(response.data.date),
+                caloriesBurned: response.data.caloriesBurned
             })
         })
         .catch(function(error){
@@ -102,7 +105,13 @@ export default class EditExercises extends Component{
     onChangeDate(date){
         this.setState({
             date: date
-        })
+        });
+    }
+
+    onChangeCaloriesBurned(e){
+        this.setState({
+            caloriesBurned: e.target.value
+        });
     }
 
     onSubmit(e){
@@ -112,7 +121,8 @@ export default class EditExercises extends Component{
             username: this.state.username,
             description: this.state.description,
             duration: this.state.duration,
-            date: this.state.date
+            date: this.state.date,
+            caloriesBurned: this.state.caloriesBurned
         }
 
         console.log(exercise);
@@ -173,6 +183,18 @@ export default class EditExercises extends Component{
                     </div>
 
                     <div className="form-group">
+                        <label>Calories Burned: </label> 
+                        {/* input text box */}
+                        <input 
+                            type="text"
+                            required
+                            className="form-control"
+                            value={this.state.caloriesBurned}
+                            onChange={this.onChangeCaloriesBurned}
+                            />
+                    </div>
+
+                    <div className="form-group">
                         <label>Date: </label> 
                         {/* date picker */}
                         <div>
@@ -183,6 +205,8 @@ export default class EditExercises extends Component{
                             />
                         </div>
                     </div>
+
+                    
                     
                     <div className="form-group">
                         <input type="submit" value="Edit Exercise Log" className="btn btn-primary" />

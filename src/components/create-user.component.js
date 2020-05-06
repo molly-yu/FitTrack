@@ -37,10 +37,16 @@ export default class CreateUsers extends Component{
         super(props);
 
         this.onChangeUsername = this.onChangeUsername.bind(this); // binding this
+        this.onChangeHeight = this.onChangeHeight.bind(this);
+        this.onChangeWeight = this.onChangeWeight.bind(this);
+        this.onChangeTargetWeight = this.onChangeTargetWeight.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = { // variables
             username: '',
+            height: 0,
+            weight: 0,
+            targetWeight: 0
         }
     }
 
@@ -49,13 +55,31 @@ export default class CreateUsers extends Component{
             username: e.target.value
         });
     }
+    onChangeHeight(e){
+        this.setState({
+            height: e.target.value
+        });
+    }
+    onChangeWeight(e){
+        this.setState({
+            weight: e.target.value
+        });
+    }
+    onChangeTargetWeight(e){
+        this.setState({
+            targetWeight: e.target.value
+        });
+    }
 
     
     onSubmit(e){
         e.preventDefault();
 
         const user = {
-            username: this.state.username
+            username: this.state.username,
+            height: this.state.height,
+            weight: this.state.weight,
+            targetWeight: this.state.targetWeight
         }
 
         console.log(user);
@@ -67,7 +91,10 @@ export default class CreateUsers extends Component{
         // window.location = '/'; //back to homepage
 
         this.setState({
-            username: ''
+            username: '',
+            height: 0,
+            weight: 0,
+            targetWeight: 0
         })
 
     }
@@ -86,6 +113,36 @@ export default class CreateUsers extends Component{
                             className="form-control"
                             value={this.state.username}
                             onChange={this.onChangeUsername}
+                            />
+                    </div>
+                    <div className="form-group">
+                        <label>Height (m): </label>
+                        <input 
+                            type="text"
+                            required
+                            className="form-control"
+                            value={this.state.height}
+                            onChange={this.onChangeHeight}
+                            />
+                    </div>
+                    <div className="form-group">
+                        <label>Weight (kg): </label>
+                        <input 
+                            type="text"
+                            required
+                            className="form-control"
+                            value={this.state.weight}
+                            onChange={this.onChangeWeight}
+                            />
+                    </div>
+                    <div className="form-group">
+                        <label>Target Weight (kg): </label>
+                        <input 
+                            type="text"
+                            required
+                            className="form-control"
+                            value={this.state.targetWeight}
+                            onChange={this.onChangeTargetWeight}
                             />
                     </div>
                     <div className="form-group">
