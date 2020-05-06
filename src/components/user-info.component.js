@@ -24,6 +24,7 @@ width:100%;
 const User = props => ( //functional react exercise component, returns table row
     <tr>
         <td>{props.user.username}</td>
+        <td>{props.user.bmi}</td>
         <td> 
             {/* <Link to={"/edit/"+props.user._id}>edit</Link> | <a href="#" onClick={() => {props.deleteUser(props.user._id) }}>delete</a> */}
         </td>

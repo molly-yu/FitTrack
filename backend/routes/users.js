@@ -9,8 +9,12 @@ router.route('/').get((req,res) =>{ // http get requests
 
 router.route('/add').post((req,res) => { // http post requests
     const username = req.body.username;
+    const height = req.body.height;
+    const weight = req.body.weight;
+    const targetWeight = req.body.targetWeight;
+    const bmi = req.body.bmi;
 
-    const newUser = new User({username}); // create new user
+    const newUser = new User({username, height, weight, targetWeight, bmi}); // create new user
 
     newUser.save()
      .then(() => res.json('User added!'))
